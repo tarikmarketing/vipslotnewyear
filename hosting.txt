@@ -1,0 +1,8 @@
+-- phpMyAdmin veya benzeri veritabanı yönetim aracında bu SQL'i çalıştırın
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    prize VARCHAR(255) NOT NULL,
+    attempts INT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

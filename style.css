@@ -1,0 +1,812 @@
+@font-face {
+  font-family: 'OzelFont';
+  src: url('https://tarikmarketing.github.io/galano/fonts/galanogrotesquebold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'OzelFont', sans-serif;
+}
+
+:root{
+    --slot1Rotate: 0;
+    --slot2Rotate: 0;
+    --slot3Rotate: 0;
+    --baseHeight: 175px;
+    --primaryColor: #fe00;
+    --secondaryColor: #fbde44;
+    --thirdColor: #83b942;
+  }
+html, body {
+  height: 100%;
+  perspective: 700;
+  background-color: #282a3a;
+}
+
+.wis-container{
+  height: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: -150px;
+}
+
+.machine{
+    top: -2em;
+    height: 1300px;
+    width: 1520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: none;
+    background: url('images/slot-frame3.png') no-repeat center center;
+    border-radius: 25px;
+    padding: 20px;
+}
+
+.slots{
+  display: flex;
+  row-gap: 10px;
+  column-gap: 20px;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  height: 300px;
+    overflow: hidden;
+  padding: 15px;
+  border-radius: 0px;
+  position: relative;
+}
+
+.slot-machine1{
+  width: 300px;
+  height: 105px;
+  list-style: none;
+  padding: 0;
+  position:relative;
+  transform-style: preserve-3d;
+  position: relative;
+  left: 160px;
+  top: -45px;
+}
+
+.slot-machine2 {
+  width: 300px;
+  height: 103px;
+  list-style: none;
+  padding: 0;
+  position:relative;
+  transform-style: preserve-3d;
+  position: relative;
+  left: -7px;
+  top: -45px;
+}
+
+.slot-machine3 {
+  width: 300px;
+  height: 103px;
+  list-style: none;
+  padding: 0;
+  position:relative;
+  transform-style: preserve-3d;
+  position: relative;
+  left: -180px;
+  top: -45px;
+}
+
+.slot1_item,.slot2_item ,.slot3_item {
+  height: 150px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 96%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  gap: 10px;
+  border: none;
+}
+
+.animation1{
+  animation-name: x-spin1;
+  animation-duration: 5s;
+  transition-duration: 3s;
+  transition-delay: 1s;
+}
+.animation2{
+  animation-name: x-spin2;
+  animation-duration: 5s;
+  transition-duration: 3s;
+  transition-delay: 1.5s;
+}
+.animation3{
+  animation-name: x-spin3;
+  animation-duration: 5s;
+  transition-duration: 3s;
+  transition-delay: 2s;
+}
+
+
+
+.image_item {
+    width: 120px;
+    height: 120px;
+    border-radius: 15px;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+.item_span{visibility: visible; position: block;}
+
+/*Winner & Loser Modal*/
+
+.winner-modal,.loser-modal{
+  top:862px;
+  left:559px;
+  width: 410px;
+  height: 105px;
+  z-index: 10;
+  color: black;
+  border-radius: 5px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.winner-modal{
+  background-color: #D3A742;
+  display: none;
+}
+.loser-modal{
+  background-color: #D3A742;
+  display: none;
+}
+.modal-title{
+  font-size: 2.5em;
+  margin: 0.5em;
+  letter-spacing: 2px;
+  text-align: center;
+  font-weight: bold;
+}
+.symbol-message-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 9999; /* Yüksek z-index değeri */
+  display: none;
+}
+
+.symbol-message {
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -60%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+.symbol-message {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: #333;
+  margin: 10px 0;
+}
+.wis-code{
+  background-color: rgba(245,245,245, .7);
+  padding: 0.5em 1.5em;
+  font-size: 2em;
+  border: 3px dotted;
+}
+.try-again-btn{
+  border: none;
+  padding: 1em 2em;
+  border-radius: 5px;  
+  color: #e55460;
+
+}
+
+@keyframes x-spin1 {
+  100% {
+    transform: rotateX(var(--slot1Rotate));
+  }
+}
+@keyframes x-spin2 {
+  100% {
+    transform: rotateX(var(--slot2Rotate));
+  }
+}
+@keyframes x-spin3 {
+  100% {
+    transform: rotateX(var(--slot3Rotate));
+  }
+}
+
+/* LEVER */
+#machine-lever {
+  position: relative;
+  top: 15em;
+  left: 0em;
+}
+
+#machine-lever .lever-base , .lever-chair, .lever-chair2 {
+
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 10px;
+  position: absolute;
+
+}
+
+#machine-lever > div.lever-base {
+  width: 1em;
+  height: 3em;
+}
+.lever-chair{
+  background: linear-gradient(to bottom, #a2a3a7 0%, #fefefe 35%, #2e2a2b 100%);
+    width: 1.5em;
+    height: 4em;
+    left: -13.5em;
+    top: -17em;
+}
+.lever-chair2{
+  background: linear-gradient(to bottom, #a2a3a7 0%, #fefefe 35%, #2e2a2b 100%);
+    width: 1em;
+    height: 3em;
+    left: -12.1em;
+    top: -16.5em;
+}
+
+
+#lever-bar {
+    height: 6em;
+    width: 0.7em;
+    background: linear-gradient(90deg, #a2a3a7, #fefefe, #2e2a2b);
+    border-radius: 10px;
+    position: absolute;
+    left: -11.57em;
+    bottom: 17.5em;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+}
+
+#lever-ball {
+  width: 2.5em;
+  height: 2.5em;
+  background: linear-gradient(145deg, #FBD557, #e36708  );
+  border-radius: 50%;
+  position: absolute;
+  left: -12.55em;
+  cursor: pointer;
+  bottom: 23em;
+  z-index: 9;
+  opacity: 1;
+  box-shadow: 5px 5px 15px rgba(10,10,10,10.3);
+  transition: all 0.3s ease;
+}
+
+#lever-ball:hover {
+  transform: scale(1.1);
+  box-shadow: 7px 7px 20px rgba(10,10,10,10.4);
+}
+
+.downBall{
+	animation-name: ballUp;
+  	animation-duration: 1s;
+}
+
+.downBar {
+	animation-name: barUp;
+  	animation-duration: 1s;
+}
+.wis-img-item{
+	height: 80px;
+	width: 80px;
+}
+
+@keyframes ballUp {
+  0% {
+      transform: translateZ(0) rotateX(0);
+      bottom: 24em;
+  }
+  50% {
+      transform: translateZ(40px) rotateX(20deg); /* Çubukla aynı açı */
+      bottom: 21em;
+  }
+  100% {
+      transform: translateZ(0) rotateX(0);
+      bottom: 24em;
+  }
+}
+
+@keyframes barUp {
+  0% {
+      transform: translateZ(0) rotateX(0);
+      height: 6em;
+  }
+  50% {
+      transform: translateZ(40px) rotateX(20deg); /* Top ile aynı hareket */
+      height: 5.8em;
+  }
+  100% {
+      transform: translateZ(0) rotateX(0);
+      height: 6em;
+  }
+}
+/*Laver*/
+
+/*Header Start*/
+
+
+@keyframes neonPulse {
+    from {
+        text-shadow: 0 0 5px #fff,
+                     0 0 10px #fff,
+                     0 0 20px var(--primaryColor),
+                     0 0 30px var(--primaryColor),
+                     0 0 40px var(--primaryColor);
+    }
+    to {
+        text-shadow: 0 0 2px #fff,
+                     0 0 5px #fff,
+                     0 0 10px var(--primaryColor),
+                     0 0 20px var(--primaryColor),
+                     0 0 30px var(--primaryColor);
+    }
+}
+
+
+.wis-h-lleg {
+    position: absolute;
+    top: -4.5em;
+    left: 2em;
+    z-index: -0;
+}
+
+.wis-h-rleg {
+  position: absolute;
+    top: -4.5em;
+    right: 2em;
+    z-index: -0;
+}
+/*Header End*/
+
+.item_span{
+  visibility: hidden;
+  position: absolute;
+}
+
+/*Info Scene*/
+.wis-txt {
+    font-family: 'OzelFont', Arial, San-serif;
+    font-size: 1.5em;
+    margin-top: -15em;
+    position: relative;
+    bottom: -7em;
+}
+.wis-starter-txt {
+    background-image: linear-gradient(to bottom, #D58A01, #D58A01, #FBD557, #F4CD59, #4A1402);
+    padding: 1em;
+    width: 100%;
+    font-family: 'OzelFont', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    border-radius: 10px;
+}
+.login-container {
+  width: 100%;
+  margin: 100px auto 40px auto; /* Üstten boşluk artırıldı */
+  text-align: center;
+  position: relative;
+  z-index: 999;
+}
+
+.login-form {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 15px;
+  backdrop-filter: blur(4px);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.login-form input {
+  padding: 15px 20px;
+  font-size: 16px;
+  border: 2px solid var(--primaryColor);
+  border-radius: 10px;
+  width: 300px;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.login-form input:focus {
+  border-color: var(--secondaryColor);
+}
+
+.login-form button {
+  padding: 15px 30px;
+  background: linear-gradient(45deg, var(--primaryColor), var(--secondaryColor));
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.login-form button:hover {
+  transform: translateY(-2px);
+}
+
+.login-form::before {
+  content: "Kullanıcı Adınızı Giriniz";
+  position: absolute;
+  top: -30px;
+  font-size: 20px;
+  color: var(--secondaryColor);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  font-weight: bold;
+  font-family: 'OzelFont', sans-serif;
+}
+
+.spin-message-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 99999;
+    display: none;
+    text-align: center;
+}
+
+.spin-message-text {
+    font-family: 'OzelFont', sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.spin-message-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-top: 10px;
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+    .machine {
+        width: 1200px;
+        height: 800px;
+        top:-400px;
+        transform: scale(0.5);
+        margin-top: 0px;
+        background: url('images/spinframemobile.png') no-repeat center center; /* Mobil frame */
+        background-size: contain; /* Görsel boyutunu container'a sığdır */
+    }
+
+    .wis-container {
+        height: auto;
+        top:500px;
+        margin-top: 600px;
+    }
+
+    .slots{
+      display: flex;
+      row-gap: 10px;
+      column-gap: 20px;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      height: 300px;
+        overflow: hidden;
+      padding: 15px;
+      border-radius: 0px;
+      position: relative;
+    }
+    
+    .image_item{
+      width: 150px;
+      height: 105px;
+      list-style: none;
+      padding: 0;
+      position:relative;
+      transform-style: preserve-3d;
+      position: relative;
+      left: 160px;
+      top: -45px;
+    }
+    
+    .slot-machine2 {
+      width: 300px;
+      height: 103px;
+      list-style: none;
+      padding: 0;
+      position:relative;
+      transform-style: preserve-3d;
+      position: relative;
+      left: -7px;
+      top: -45px;
+    }
+    
+    .slot-machine3 {
+      width: 300px;
+      height: 103px;
+      list-style: none;
+      padding: 0;
+      position:relative;
+      transform-style: preserve-3d;
+      position: relative;
+      left: -180px;
+      top: -45px;
+    }
+    .login-container {
+        width: 90%;
+        margin: 50px auto;
+    }
+
+    .login-form {
+        padding: 15px;
+    }
+
+    .login-form input {
+        width: 80%;
+        max-width: 250px;
+    }
+
+    .wis-starter-txt{
+      position: relative;
+      top:-400px;
+    }
+
+    .spin-message-modal {
+        width: 80%;
+        max-width: 300px;
+    }
+
+    .spin-message-text {
+        font-size: 24px;
+    }
+
+    #machine-lever {
+        transform: scale(0.7);
+        right: -100px;
+        position: relative;
+    }
+    .lever-chair{
+      background: linear-gradient(to bottom, #a2a3a7 0%, #fefefe 35%, #2e2a2b 100%);
+        width: 1.5em;
+        height: 4em;
+        left: -29.5em;
+        top: -18em;
+    }
+    .lever-chair2{
+      background: linear-gradient(to bottom, #a2a3a7 0%, #fefefe 35%, #2e2a2b 100%);
+        width: 1em;
+        height: 3em;
+        left: -28.1em;
+        top: -17.5em;
+    }
+    
+    
+    #lever-bar {
+        height: 6em;
+        width: 0.7em;
+        background: linear-gradient(90deg, #a2a3a7, #fefefe, #2e2a2b);
+        border-radius: 10px;
+        position: absolute;
+        left: -27.57em;
+        bottom: 18.5em;
+        box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+    }
+    
+    #lever-ball {
+      width: 2.5em;
+      height: 2.5em;
+      background: linear-gradient(145deg, #FBD557, #e36708  );
+      border-radius: 50%;
+      position: absolute;
+      left: -28.55em;
+      cursor: pointer;
+      bottom: 23em;
+      z-index: 9;
+      opacity: 1;
+      box-shadow: 5px 5px 15px rgba(10,10,10,10.3);
+      transition: all 0.3s ease;
+      pointer-events: auto; /* Tıklamayı aktif et */
+    }
+    
+    #lever-ball:hover {
+      transform: scale(1.1);
+      box-shadow: 7px 7px 20px rgba(10,10,10,10.4);
+    }
+
+    #machine-lever {
+        position: relative;
+        z-index: 999; /* z-index'i artır */
+        pointer-events: auto; /* Tüm lever alanında tıklamayı aktif et */
+    }
+
+    /* Slot pozisyonları */
+    .slot-machine1 {
+        width: 300px;
+        height: 105px;
+        list-style: none;
+        padding: 0;
+        position: relative;
+        transform-style: preserve-3d;
+        left: -0px;  /* Pozisyonu ayarlanabilir */
+        top: -45px;   /* Pozisyonu ayarlanabilir */
+    }
+    
+    .slot-machine2 {
+        width: 300px;
+        height: 103px;
+        list-style: none;
+        padding: 0;
+        position: relative;
+        transform-style: preserve-3d;
+        left: -120px;   /* Pozisyonu ayarlanabilir */
+        top: -45px;   /* Pozisyonu ayarlanabilir */
+    }
+    
+    .slot-machine3 {
+        width: 300px;
+        height: 103px;
+        list-style: none;
+        padding: 0;
+        position: relative;
+        transform-style: preserve-3d;
+        left: -260px; /* Pozisyonu ayarlanabilir */
+        top: -45px;   /* Pozisyonu ayarlanabilir */
+    }
+
+    /* Mobil görseller için özel kontroller */
+    .slot1_item .image_item[src*='50tlv2.png'],
+    .slot2_item .image_item[src*='50tlv2.png'],
+    .slot3_item .image_item[src*='50tlv2.png'] {
+        content: url('https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/50tlmobile.png');
+    }
+
+    .slot1_item .image_item[src*='cark.png'],
+    .slot2_item .image_item[src*='cark.png'],
+    .slot3_item .image_item[src*='cark.png'] {
+        content: url('https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/carkmobile.png');
+    }
+
+    .slot1_item .image_item[src*='ucak.png'],
+    .slot2_item .image_item[src*='ucak.png'],
+    .slot3_item .image_item[src*='ucak.png'] {
+        content: url('https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/ucakmobile.png');
+    }
+
+    /* Görsel boyutları için */
+    .image_item {
+        width: 200px;  /* 100px'den 150px'e çıkardık */
+        height: 200px; /* 100px'den 150px'e çıkardık */
+        border-radius: 18px;
+        padding: 15px;
+    }
+
+    /* Winner & Loser Modal için mobil stiller */
+    .winner-modal, .loser-modal {
+        top: 572px;
+        left: 493px;
+        width: 270px;
+        height: 75px;
+        z-index: 10;
+        color: black;
+        border-radius: 5px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .winner-modal {
+        background-color: #D3A742;
+        display: none;
+    }
+
+    .loser-modal {
+        background-color: #D3A742;
+        display: none;
+    }
+
+    .modal-title {
+        font-family: 'OzelFont', sans-serif;
+        font-size: 2000;
+        margin: 1em;
+        letter-spacing: 2px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .wis-txt {
+      font-family: 'OzelFont', Arial, San-serif;
+      font-size: 1em;
+      margin-top: -52em; /* -15em'den -25em'e değiştirildi */
+      position: relative;
+      bottom: -7em;
+  }
+
+  .wis-starter-txt {
+      font-family: 'OzelFont', sans-serif;
+      background-image: linear-gradient(to bottom, #D58A01, #D58A01, #FBD557, #F4CD59, #4A1402);
+      padding: 0.8em;
+      width: 100%;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: white;
+      border-radius: 10px;
+      font-size: 0.8em;
+      position: relative;
+      top: -100px; /* Yukarı çekmek için eklendi */
+  }
+}
+
+/* Daha küçük ekranlar için */
+@media screen and (max-width: 480px) {
+    .machine {
+        transform: scale(0.35);
+        margin-top: -400px;
+        background: url('images/spinframemobile.png') no-repeat center center;
+        background-size: contain;
+    }
+
+    .slots {
+        transform: scale(0.5);
+    }
+
+    .spin-message-text {
+        font-size: 20px;
+    }
+
+    #machine-lever {
+        transform: scale(0.6);
+        right: 5%;
+    }
+
+    .image_item {
+        width: 120px;   /* 80px'den 120px'e çıkardık */
+        height: 120px;  /* 80px'den 120px'e çıkardık */
+        border-radius: 12px;
+        padding: 8px;
+    }
+
+    .wis-txt {
+        font-size: 0.8em;
+    }
+    
+    .wis-starter-txt {
+        padding: 0.6em;
+        font-size: 0.7em;
+    }
+}
+

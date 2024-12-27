@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://tarikmarketing.github.io/vipslotyilbasi/style.css'">
+    <title>Slot Machine</title>
+</head>
+<body>
+  
+  <div class="login-container">
+    <form id="loginForm" class="login-form">
+      <input 
+        type="text" 
+        id="username" 
+        placeholder="Adınızı buraya yazın..." 
+        required
+        autocomplete="off"
+      >
+      <button type="submit">Oyuna Başla</button>
+    </form>
+  </div>
+    <div class="wis-container">
+      <div class="machine">
+        <div class="wis-header"> 
+          <div class="wis-h-main">
+            <div class="wis-blink-border">
+              <div class="wis-h-text"></div>
+            </div>
+          </div> 
+          <div class="wis-h-rleg"></div>
+          <div class="wis-h-lleg"></div>
+        </div>
+        <div class="slots">
+          <ul class="slot-machine1"></ul>
+          <ul class="slot-machine2"></ul>
+          <ul class="slot-machine3"></ul>
+        </div>
+        <div class="spin-message-modal"></div>
+        <div class="symbol-message-modal"></div>
+        <div class="winner-modal"></div>
+        <div class="loser-modal"></div>
+        <div id="machine-lever">
+          <div class="lever-base">	  
+            <div id="lever-bar" class="wis-brr"></div>
+            <div id="lever-ball" class="wis-bll"></div>
+            <div class="lever-chair"></div>
+            <div class="lever-chair2"></div>
+          </div>
+        </div>
+      </div>
+      <p class="wis-txt"><span class="wis-starter-txt">Çevirmek için kolu çek!</span></p>
+    </div>
+  </body>
+<script type="module" src="https://tarikmarketing.github.io/vipslotyilbasi/game.js"></script>
+<script type="module" src="https://tarikmarketing.github.io/vipslotyilbasi/data_sender.js"></script>
+</html>
