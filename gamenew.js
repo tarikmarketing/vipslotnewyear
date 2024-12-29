@@ -1,7 +1,17 @@
+// Global state
+let isLoggedIn = false;
+let gameCount = 1; // Default spin hakkı
+
 document.addEventListener('DOMContentLoaded', function() {
   const loginForm = document.getElementById('loginForm');
   const wisText = document.querySelector('.wis-txt');
+  const leverBall = document.getElementById('lever-ball');
+  const leverBar = document.getElementById('lever-bar');
+  const slotMac1 = document.querySelector('.slot-machine1');
+  const slotMac2 = document.querySelector('.slot-machine2');
+  const slotMac3 = document.querySelector('.slot-machine3');
 
+  // Login form submit handler
   loginForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     const username = document.getElementById('username').value;
@@ -12,7 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (hasSpinRight) {
           loginForm.style.display = 'none';
           wisText.innerHTML = `<span class="wis-starter-txt">Hoş geldin ${username}! Çevirmek için kolu çek!</span>`;
-          init();
+          isLoggedIn = true; // Set login state
+          init(); // Initialize slot machine
         } else {
           alert('Spin hakkınız yok!');
         }
@@ -21,6 +32,31 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Bir hata oluştu. Lütfen tekrar deneyin.');
       }
     }
+  });
+
+  // Lever click handler
+  leverBall.addEventListener('click', function() {
+    console.log('Login durumu:', isLoggedIn); // Debug için
+
+    if (!isLoggedIn) {
+      alert('Lütfen önce kullanıcı adınızı girip "Oyuna Başla" butonuna tıklayın!');
+      return;
+    }
+
+    if (gameCount <= 0) {
+      alert('Spin hakkınız kalmadı!');
+      return;
+    }
+
+    // Spin işlemini başlat
+    leverBall.classList.add('downBall');
+    leverBar.classList.add('downBar');
+    slotMac1.classList.add('animation1');
+    slotMac2.classList.add('animation2');
+    slotMac3.classList.add('animation3');
+    
+    // Spin fonksiyonunu çağır
+    spin();
   });
 });
 
@@ -93,6 +129,8 @@ let items = [];
 let winRates = [];
 let totalWRates = 0;
 let spliterC = 0;
+
+// Global login flag ekle
 
 function init() {
   // Mobil kontrol
@@ -402,15 +440,12 @@ function slotMachine(){
 
   // leverBall click event listener'ını güncelle
   leverBall.addEventListener('click', function() {
-    // Kullanıcı adı kontrolü
-    const username = document.getElementById('username').value;
-    
-    if (!username || username.trim() === '') {
-      alert('Lütfen önce kullanıcı adınızı girin!');
-      return; // Fonksiyonu burada sonlandır
+    if (!isLoggedIn) {
+        alert('Lütfen önce kullanıcı adınızı girip "Oyuna Başla" butonuna tıklayın!');
+        return;
     }
-  
-    // Kullanıcı adı varsa normal işleme devam et
+
+    // Login yapılmışsa normal işleme devam et
     leverBall.classList.add('downBall');
     leverBar.classList.add('downBar');
     slotMac1.classList.add('animation1');
@@ -425,6 +460,7 @@ function slotMachine(){
 }
 slotMachine();
 
+// Login form submit handler'ını güncelle
 function handleLogin(event) {
     event.preventDefault();
     const username = document.getElementById('username').value;
@@ -434,6 +470,12 @@ function handleLogin(event) {
         
         // Kullanıcı adını sakla
         localStorage.setItem('username', username);
+        
+        // Login flag'i güncelle
+        isLoggedIn = true;
+        
+        // Form container'ı gizle
+        document.querySelector('.login-container').style.display = 'none';
         
         // Slot makinesini başlat
         init();
