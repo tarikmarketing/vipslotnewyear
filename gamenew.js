@@ -244,7 +244,7 @@ function slotMachine(){
         const imageUrl = items[window.currentWinnerIndex]; // Kazanan sembolün URL'si
   
         const symbols = {
-          'carkv2.png': 'VIP ÇARKTA GEÇERLİ KOD KAZANDINIZ!',
+          'cark.png': 'VIP ÇARKTA GEÇERLİ KOD KAZANDINIZ!',
           'ucak.png': 'BIG BASS XMAS OYUNUNDA GEÇERLİ 50 FREE SPIN KAZANDINIZ!',
           '50tlv2.png': 'HER ALANDA GEÇERLİ 50 TL KAZANDINIZ!',
           'bigbassxmas.png': 'VIPPARX OYUNUNDA GEÇERLİ 50 TL KAZANDINIZ!'
