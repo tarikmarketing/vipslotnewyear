@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Login durumu:', isLoggedIn); // Debug için
 
     if (!isLoggedIn) {
-      alert('Lütfen önce kullanıcı adınızı girip "Oyuna Başla" butonuna tıklayın!');
+      alert('Lütfen önce kullanıcı adınızı girip Onayla butonuna tıklayın!');
       return;
     }
 
