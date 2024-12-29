@@ -441,7 +441,6 @@ function slotMachine(){
   // leverBall click event listener'ını güncelle
   leverBall.addEventListener('click', function() {
     if (!isLoggedIn) {
-        alert('Lütfen önce kullanıcı adınızı girip "Oyuna Başla" butonuna tıklayın!');
         return;
     }
 
