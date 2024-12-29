@@ -21,7 +21,7 @@ body {
 html, body {
   height: 100%;
   perspective: 700;
-  background-color: #282a3a;
+  background-color: #1e1e1e;
 }
 
 .wis-container{
@@ -42,7 +42,7 @@ html, body {
     justify-content: center;
     position: relative;
     border: none;
-    background: url('https://tarikmarketing.github.io/vipslotnewyear/slot-frame3.png') no-repeat center center;
+    background: url('images/slot-frame3.png') no-repeat center center;
     border-radius: 25px;
     padding: 20px;
 }
