@@ -253,7 +253,7 @@ function slotMachine(){
         const fileName = imageUrl.split('/').pop().toLowerCase();
         console.log('Seçilen dosya:', fileName); // Debug için
   
-        let messageToShow = 'TEBRİKLER!';
+        let messageToShow = '';
         let reward = '';
         for (let symbol in symbols) {
           console.log('Karşılaştırılan:', symbol, fileName); // Debug için
@@ -400,9 +400,19 @@ function slotMachine(){
   init();
   spin();
 
-  leverBall.addEventListener('click',function(){
+  // leverBall click event listener'ını güncelle
+  leverBall.addEventListener('click', function() {
+    // Kullanıcı adı kontrolü
+    const username = document.getElementById('username').value;
+    
+    if (!username || username.trim() === '') {
+      alert('Lütfen önce kullanıcı adınızı girin!');
+      return; // Fonksiyonu burada sonlandır
+    }
+  
+    // Kullanıcı adı varsa normal işleme devam et
     leverBall.classList.add('downBall');
-    leverBar.classList.add ('downBar');
+    leverBar.classList.add('downBar');
     slotMac1.classList.add('animation1');
     slotMac2.classList.add('animation2');
     slotMac3.classList.add('animation3');
