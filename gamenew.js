@@ -11,31 +11,66 @@ document.addEventListener('DOMContentLoaded', function() {
   const slotMac2 = document.querySelector('.slot-machine2');
   const slotMac3 = document.querySelector('.slot-machine3');
 
+  // Sayfa yüklendiğinde önceki kullanıcı adını kontrol et
+  const savedUsername = localStorage.getItem('username');
+  if (savedUsername) {
+    const usernameInput = document.getElementById('username');
+    usernameInput.value = savedUsername;
+    usernameInput.readOnly = true;
+    loginForm.style.display = 'none';
+    wisText.innerHTML = `<span class="wis-starter-txt">Hoş geldin ${savedUsername}! Çevirmek için kolu çek!</span>`;
+    isLoggedIn = true;
+    init();
+
+    // Kullanıcı adı varsa spin hakkını kontrol et
+    checkSpinRight(savedUsername.toLowerCase()).then(hasSpinRight => {
+      if (!hasSpinRight) {
+        alert('Spin hakkınız kalmadı!');
+        isLoggedIn = false; // Spin hakkı yoksa login durumunu false yap
+      }
+    }).catch(error => {
+      console.error('Spin hakkı kontrolünde hata:', error);
+      alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+    });
+  }
+
   // Login form submit handler
   loginForm.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const username = document.getElementById('username').value;
+    let username = document.getElementById('username').value.trim().toLowerCase();
 
-    if (username.trim() !== '') {
-      try {
-        const hasSpinRight = await checkSpinRight(username);
-        if (hasSpinRight) {
-          loginForm.style.display = 'none';
-          wisText.innerHTML = `<span class="wis-starter-txt">Hoş geldin ${username}! Çevirmek için kolu çek!</span>`;
-          isLoggedIn = true; // Set login state
-          init(); // Initialize slot machine
-        } else {
-          alert('Spin hakkınız yok!');
-        }
-      } catch (error) {
-        console.error('Form submit hatası:', error);
-        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+    // Boşluk kontrolü
+    if (username === '' || username.includes(' ')) {
+      alert('Kullanıcı adı boş olamaz ve boşluk içeremez!');
+      return;
+    }
+
+    try {
+      const hasSpinRight = await checkSpinRight(username);
+      if (hasSpinRight) {
+        loginForm.style.display = 'none';
+        wisText.innerHTML = `<span class="wis-starter-txt">Hoş geldin ${username}! Çevirmek için kolu çek!</span>`;
+        isLoggedIn = true;
+        localStorage.setItem('username', username);
+        init();
+      } else {
+        alert('Spin hakkınız yok!');
       }
+    } catch (error) {
+      console.error('Form submit hatası:', error);
+      alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+    }
+  });
+
+  // Username input için keypress event ekle
+  document.getElementById('username').addEventListener('keypress', function(e) {
+    if (e.key === ' ') {
+      e.preventDefault();
     }
   });
 
   // Lever click handler
-  leverBall.addEventListener('click', function() {
+  leverBall.addEventListener('click', async function() {
     console.log('Login durumu:', isLoggedIn); // Debug için
 
     if (!isLoggedIn) {
@@ -43,9 +78,11 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    if (gameCount <= 0) {
+    const username = document.getElementById('username').value.toLowerCase();
+    const hasSpinRight = await checkSpinRight(username);
+    if (!hasSpinRight) {
       alert('Spin hakkınız kalmadı!');
-      return;
+      return; // Spin işlemini durdur
     }
 
     // Spin işlemini başlat
@@ -57,6 +94,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Spin fonksiyonunu çağır
     spin();
+  });
+
+  // Ekran boyutu değiştiğinde görselleri güncelle
+  window.addEventListener('resize', function() {
+    init();
   });
 });
 
@@ -138,8 +180,8 @@ function init() {
   
   // Görselleri tanımla
   const images = {
-    desktop: 'https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/50tlv2.png,10,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/ucak.png,5,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/cark.png,10,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/bigbassxmas.png,20',
-    mobile: 'https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/50tlmobile.png,10,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/ucakmobile.png,5,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/carkmobile.png,10,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/bigbassxmasmobile.png,20'
+    desktop: 'https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/50tlv2.png,30,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/ucak.png,30,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/cark.png,10,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/bigbassxmas.png,30',
+    mobile: 'https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/50tlmobile.png,30,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/ucakmobile.png,30,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/carkmobile.png,10,https://raw.githubusercontent.com/tarikmarketing/vipslotyilbasi/refs/heads/main/bigbassxmasmobile.png,30'
   };
   
   // Ekran boyutuna göre görsel setini seç
