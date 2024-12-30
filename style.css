@@ -42,7 +42,7 @@ html, body {
     justify-content: center;
     position: relative;
     border: none;
-    background: url('https://tarikmarketing.github.io/vipslotnewyear/slot-frame3.png') no-repeat center center;
+    background: url('images/slot-frame3.png') no-repeat center center;
     border-radius: 25px;
     padding: 20px;
 }
@@ -388,20 +388,20 @@ html, body {
 /*Info Scene*/
 .wis-txt {
     font-family: 'OzelFont', Arial, San-serif;
-    font-size: 1.5em;
+    font-size: 1.8em;
     margin-top: -15em;
     position: relative;
     bottom: -7em;
 }
 .wis-starter-txt {
-    background-image: linear-gradient(to bottom, #D58A01, #D58A01, #FBD557, #F4CD59, #4A1402);
-    padding: 1em;
-    width: 100%;
+    background-image: linear-gradient(to bottom, #fe00, #fe00, #fe00, #fe00, #fe00);
+    padding: 2em;
+    width: 200%;
     font-family: 'OzelFont', sans-serif;
     font-weight: bold;
     text-transform: uppercase;
     color: white;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 .login-container {
   width: 100%;
